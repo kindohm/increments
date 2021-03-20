@@ -33,9 +33,8 @@ const setTags = async (sketchDirName) => {
       comment: { language: "eng", text: code },
     };
 
-    // const ttt = NodeID3.read(mp3Path);
-    // console.log("tags", ttt);
-    // resolve();
+    console.log(mp3Path);
+
     NodeID3.write(tags, mp3Path, function (err) {
       if (err) {
         return reject(err);
@@ -48,7 +47,6 @@ const setTags = async (sketchDirName) => {
 const main = async () => {
   console.log("reading sketches");
   const sketchDirNames = fs.readdirSync(`${__dirname}/../sketches`);
-  console.log(`found ${sketchDirNames.length} sketches`);
 
   console.log("mapping sketches");
   const promises = sketchDirNames
