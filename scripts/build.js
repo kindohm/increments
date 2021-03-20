@@ -119,9 +119,6 @@ if (fs.existsSync(distFolder)) {
 console.log("creating dist folder");
 fs.mkdirSync(distFolder);
 
-console.log("creating mp3 folder");
-fs.mkdirSync(`${distFolder}/increments/`);
-
 const outPath = `${__dirname}/../dist/index.html`;
 fs.writeFileSync(outPath, indexOutput);
 
@@ -137,6 +134,7 @@ fs.copyFileSync(
 );
 
 if (!isProd) {
+  fs.mkdirSync(`${distFolder}/increments/`);
   sketches.forEach((sketch) => {
     fs.copyFile(sketch.mp3SourcePath, sketch.mp3DestPath, (err) => {
       if (err) {
