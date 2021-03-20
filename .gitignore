@@ -1,0 +1,7 @@
+samples
+*.wav
+*.mp3
+*.flp
+dist
+node_modules
+.DS_Store

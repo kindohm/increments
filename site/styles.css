@@ -1,0 +1,71 @@
+:root {
+  --bgcolor: {bgcolor};
+  --forecolor: {forecolor};
+}
+
+body {
+  font-family: sans-serif;
+  text-align: center;
+  background-color: var(--bgcolor);
+  color: var(--forecolor);
+}
+
+a,
+a:link,
+a:visited,
+a:active {
+  color: var(--forecolor);
+  text-decoration: underline;
+}
+
+.container {
+  text-align: left;
+  margin: auto;
+  max-width: 800px;
+  padding-top: 1rem;
+}
+
+heading {
+  font-family: Consolas, monospace;
+  margin: 0px;
+  margin-bottom: 1rem;
+  text-transform: lowercase;
+}
+
+article {
+  margin-bottom: 8rem;
+}
+
+pre {
+  overflow-x: auto;
+  padding: 1rem;
+  background-color: var(--forecolor);
+  margin-bottom: 1rem;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+pre code {
+  color: var(--bgcolor);
+  font-family: Consolas, monospace;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+h1 {
+  font-size: 4rem;
+  font-weight: normal;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  color: var(--bgcolor);
+  background-color: var(--forecolor);
+
+  line-height: 4rem;
+  height: 125px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}

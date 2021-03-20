@@ -1,0 +1,4 @@
+{
+  "ext": "js,html,tidal",
+  "ignore": [".git", "node_modules/**/node_modules", "dist"]
+}

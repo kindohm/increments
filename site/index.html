@@ -1,0 +1,25 @@
+{for sketch in sketches}
+<article>
+  <h1>{sketch.sketchNumber} : {sketch.dateDisplay}</h1>
+  <p><audio controls src="{sketch.mp3DestUrl}" style="width: 100%" /></p>
+  <pre><code>{sketch.tidalCode}</code></pre>
+</article>
+{/for}
+
+<script>
+  (() => {
+    let player;
+    window.addEventListener(
+      "play",
+      (evt) => {
+        if (player && player !== evt.target) {
+          player.pause();
+          player.currentTime = 0;
+        }
+        player = evt.target;
+      },
+      true
+    );
+  })();
+</script>
+

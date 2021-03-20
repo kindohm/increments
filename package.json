@@ -1,0 +1,26 @@
+{
+  "name": "increments",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon --exec 'yarn run build && yarn run serve'",
+    "build": "node scripts/build.js",
+    "build-prod": "prod=true node scripts/build.js",
+    "serve": "http-server ./dist",
+    "format": "yarn pretty-quick --staged",
+    "tag": "node scripts/tag.js"
+  },
+  "pre-commit": [
+    "format"
+  ],
+  "devDependencies": {
+    "date-fns": "^2.19.0",
+    "node-id3": "^0.2.2",
+    "nodemon": "^2.0.7",
+    "pre-commit": "^1.2.2",
+    "prettier": "^2.2.1",
+    "pretty-quick": "^3.1.0",
+    "whiskers": "^0.4.0"
+  }
+}

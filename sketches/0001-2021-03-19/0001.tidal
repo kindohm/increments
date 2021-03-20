@@ -1,0 +1,26 @@
+
+do
+  d1
+    $ whenmod 17 12 (|* cps (range 0.5 2 $ slow 3.1 tri))
+    $ whenmod 10 5 (|* cps (range 0.5 2 $ slow 4.1 tri))
+    $ (|* cps (segment 1 $ range 0.125 2 $ shrand 100))
+    $ limit
+    $ stack [
+      s "sketch0001" 
+        # n "<10 12 17 18>"          
+        # cut 1
+      , plyWith "<5 10 15 5 10 15 25>" (# gain 0.8) 
+        $ s "sketch0001" 
+        # n "<19 5 19 21 16>" 
+        # legato 1 
+    ] # cps "<4 2 3 2 1 1>"
+  d2 
+    $ loopAt "<4>" 
+    $ s "sketch0001" 
+    # begin 0.1 
+    # cut 8293 
+    # shape 0.3 
+    # room 0.9 # size 0.9 
+    # gain 0.9
+
+hush
