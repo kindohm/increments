@@ -11,6 +11,7 @@ s.options.numInputBusChannels = 0;
 s.waitForBoot {
 	~dirt = SuperDirt(2, s);
 	~dirt.loadSoundFiles("~/studio/days/samples/*");
+	~dirt.loadSoundFiles("~/studio/samples/*");
 	s.sync;
 	~dirt.start(57120, [0,2,4,6]);
 };

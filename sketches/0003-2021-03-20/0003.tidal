@@ -1,0 +1,24 @@
+do
+  let pat = "1(<3 2 5 2 7>,16,<0 5 10 17 20>)"
+  d1 
+    $ limit
+    $ while (foldEvery [2,3] rev $ "{t f f}%4") (|* speed 0.5)
+    $ stutWith "{1 1 2 1 1}%13" "1s" id
+    $ stack [
+      while ("<t t f f f f f>") 
+        (superimpose ((# s "sub") . (# gain 0.8) . ( # cut 181) . (# speed 1)))
+      $ while (every 3 rev $ "{t f f f f f}%8") (|+ n 2) 
+        $ while (every 2 rev $ "<t f f f f>") (superimpose ((# n 1) . (# cut 999)))
+        $ struct "1(<7 5>,16)"
+        $ s "[sketch0003]" # n 9 # shape 0.3 # cut 10 # speed 0.5
+    ] 
+  d2
+    $ limit
+    $ s "sketch0003" 
+    # n 14 # speed "[0.5, 0.25]" # cps (160/120/2)
+
+
+
+    d1 $ s "sketch0003" # n 
+
+    hush
