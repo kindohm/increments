@@ -5,7 +5,8 @@ do
     $ one 0.2
     $ while "{t f f f f f}%16" (|+ n "{100 200 300}%26")    
     $ stack [
-        struct pat $ s "sketch0004" # n "4" # cut 1 # speed (slow 12 $ "<1 0.5>") # shape 0.5
+        struct pat $ s "sketch0004" # n "4" # cut 1 
+          # speed (slow 12 $ "<1 0.5>") # shape 0.5
         , whenmod 24 16 g 
           $ foldEvery [4,8,12] ((# s "{vix dim1 herb1}%12") . (|* speed 0.5)) 
           $ ("2s" ~>) $ struct pat $ s "chub" # cut 2
@@ -18,5 +19,3 @@ do
     $ s "sketch0004" # n "18" # end 0.2
 
 hush
-
-
