@@ -12,6 +12,6 @@ do
     # cut 1 
     # begin "[0.55 0.75 0.35]*4"
     # crush 7
-    # shape 0.5
+    # shape 0
 
     hush

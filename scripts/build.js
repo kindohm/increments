@@ -1,6 +1,7 @@
 const fs = require("fs");
 const whiskers = require("whiskers");
 const { format, parse } = require("date-fns");
+const { encode } = require("html-entities");
 
 const isProd = process.env.prod === "true";
 const urlPrefix = isProd ? "https://kindohm-increments.s3.amazonaws.com" : "";
@@ -18,7 +19,7 @@ const sketches = sketchDirNames
     const tidalPath = `${sketchDir}/${sketchNumber}.tidal`;
     const mp3SourcePath = `${sketchDir}/${sketchNumber}.mp3`;
     const date = parse(rawDateString, "yyyy-MM-dd", new Date());
-    const tidalCode = fs.readFileSync(tidalPath, "utf8");
+    const tidalCode = encode(fs.readFileSync(tidalPath, "utf8"));
     const mp3DestFilename = `kindohm.incremental.${sketchNumber}.mp3`;
     const mp3DestUrl = `${urlPrefix}/increments/${mp3DestFilename}`;
     const mp3DestPath = `${__dirname}/../dist/increments/${mp3DestFilename}`;
