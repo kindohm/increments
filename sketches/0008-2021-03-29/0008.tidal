@@ -1,0 +1,22 @@
+do
+  let pat = "1(<2 1 2 5 3>,16,<0 1 0 1 0 4>)"
+  d1
+    $ limit
+    $ every 3 rev
+    $ while (slow 2 $ binary 17) (stutWith 2 "3s" (|* speed 2))
+    $ while (slow 1.33 $ rev $ pat) (|+ n 1)
+    $ while (slow 1.25 $ (100 ~>) $ pat) (|+ n "<2 4 2 4 10>")
+    $ while (fast 1.25 $ binary 33) (|* speed 2)
+    $ every 5 g
+    $ one 0.15
+    $ stack [
+        while (slow 4 $ binary 55) (|* speed 2)
+          $ struct pat $ n "<32 32 892>" 
+          # cut "{1 2}%11" # speed 0.5 # s "sketch0008"
+          # shape 0.3
+        , struct pat $ s "fmbd2" # gain 0.9
+    ] # cps (140/120/2)
+  d2 $ fast 2 $ s "sketch0008" # n 42342 # speed 0.5 # cut 1 # begin 0.1 # crush 7 # gain 1.1
+  d3 $ limit $ whenmod 10 5 (0.125 ~>) $ s "sketch0008" # n "24" # end 0.1 # speed 1.5 # hpf 1000
+
+hush
