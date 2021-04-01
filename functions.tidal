@@ -13,3 +13,17 @@ let
   beginend bpat durpat = (begin bpat) # (end $ (+) <$> bpat <*> durpat)
   cpsDisc min max p = (|* cps (segment 1 $ range min max $ shrand 17719373)) $ p
   cpsTri min max spd p = (|* cps (range min max $ slow spd $ tri)) $ p
+  ripOLD a b p = within (0.25, 0.75) (slow 2 . rev . stut 8 a b) p
+  ripOLD' a b c d e p = within (a, b) (slow 2 . rev . stut c d e) p
+  rip1 p= ripOLD 0.6 (0.0625/8) $ p
+  dg0 = degradeBy 0
+  dg1 = degradeBy 0.1
+  dg2 = degradeBy 0.2
+  dg3 = degradeBy 0.3
+  dg4 = degradeBy 0.4
+  dg5 = degradeBy 0.5
+  dg6 = degradeBy 0.6
+  dg7 = degradeBy 0.7
+  dg8 = degradeBy 0.8
+  dg9 = degradeBy 0.9
+  dg10 = degradeBy 1
