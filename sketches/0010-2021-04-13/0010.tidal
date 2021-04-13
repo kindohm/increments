@@ -1,4 +1,3 @@
-
 do
   d1 
     $ whenmod 10 5 (0.25 ~>)
@@ -29,5 +28,4 @@ do
     # shape 0.2
     # speed 1
 
-
-  hush
+hush
