@@ -22,7 +22,7 @@ const sketches = patternsMetadata
     const { name, date } = patternMetadata;
     const tidalPath = `${__dirname}/../patterns/${name}.tidal`;
     const tidalCode = encode(fs.readFileSync(tidalPath, "utf8"));
-    const mp3SourcePath = `${__dirname}/../mixes/${name}.mp3`
+    const mp3SourcePath = `${__dirname}/../mixes/${name}.mp3`;
     const mp3DestFilename = `kindohm.incremental.${name}.mp3`;
     const mp3DestPath = `${__dirname}/../dist/increments/${mp3DestFilename}`;
     const mp3DestUrl = `${urlPrefix}/increments/${mp3DestFilename}`;
@@ -33,7 +33,7 @@ const sketches = patternsMetadata
       tidalCode,
       mp3DestUrl,
       dateDisplay,
-      mp3SourcePath, 
+      mp3SourcePath,
       mp3DestPath,
       date: new Date(date),
     };
@@ -68,6 +68,14 @@ const colors = [
   { forecolor: "#7aea24", bgcolor: "#8411df" },
   { forecolor: "#6f0e4c", bgcolor: "#91feb5" },
   { forecolor: "#69dd60", bgcolor: "#961ea0" },
+  { forecolor: "#e8b558", bgcolor: "#1247a9" },
+  { forecolor: "#62ca9f", bgcolor: "#a1315e" },
+  { forecolor: "#cfd9b0", bgcolor: "#2c2448" },
+  { forecolor: "#1d57c0", bgcolor: "#feab3e" },
+  { forecolor: "#191790", bgcolor: "#f4ec6f" },
+  { forecolor: "#2d2d2d", bgcolor: "#0175dd" },
+  { forecolor: "#6b1584", bgcolor: "#96f37c" },
+  { forecolor: "#373737", bgcolor: "#ef3b18" },
 ];
 
 const randColor = colors[getRandomIntInclusive(0, colors.length - 1)];
@@ -122,7 +130,7 @@ fs.copyFileSync(
 );
 
 if (!isProd) {
-  console.log('copying mp3s to local increments/ dir');
+  console.log("copying mp3s to local increments/ dir");
   fs.mkdirSync(`${distFolder}/increments/`);
   sketches.forEach((sketch) => {
     fs.copyFile(sketch.mp3SourcePath, sketch.mp3DestPath, (err) => {
@@ -132,6 +140,5 @@ if (!isProd) {
     });
   });
 }
-
 
 console.log("done");
