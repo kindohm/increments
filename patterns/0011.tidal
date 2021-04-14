@@ -1,0 +1,24 @@
+do
+  d1  
+    $ limit
+    $ foldEvery [4, 6, 7] (slow 1.5)
+    $ while (slow 1.75 $ binary 33) randdelay
+    $ foldEvery [3,5] (|+ n "<3 3 3 3 10>")
+    $ while 
+      "t(<2 1 1 2 1>,8,<11 20 23>)" 
+      ((# s "<alm1 bas>") . (# gain 0.9))
+    $ while 
+      (fast 1.25 $ binary 9) 
+      ((# orbit 1) . (# gain 0.8))
+    $ while (slow 1.5 $ binary 22) (|* speed 2)
+    $ while (slow 1.33 $ binary 11) (|+ cut 1)
+    $ while 
+      "t(<4 2>,8,<11 81 15>)" 
+      (off "<0.25 0.125 0.375>" (|+ n "<1 2>"))
+    $ struct "1(<3 2 1>,16,<0 1>)" 
+    $ n "{[6 1]/2 2 [3 5]/2}%13" # cut "1"
+    # speed "0.5"
+    # orbit 0
+    # s "sketch0011" # cps 0.6
+
+    hush
