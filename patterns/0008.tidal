@@ -16,7 +16,9 @@ do
           # shape 0.3
         , struct pat $ s "fmbd2" # gain 0.9
     ] # cps (140/120/2)
-  d2 $ fast 2 $ s "sketch0008" # n 42342 # speed 0.5 # cut 1 # begin 0.1 # crush 7 # gain 1.1
-  d3 $ limit $ whenmod 10 5 (0.125 ~>) $ s "sketch0008" # n "24" # end 0.1 # speed 1.5 # hpf 1000
+  d2 $ fast 2 $ s "sketch0008" 
+    # n 42342 # speed 0.5 # cut 1 # begin 0.1 # crush 7 # gain 1.1
+  d3 $ limit $ whenmod 10 5 (0.125 ~>) $ s "sketch0008" 
+    # n "24" # end 0.1 # speed 1.5 # hpf 1000
 
 hush

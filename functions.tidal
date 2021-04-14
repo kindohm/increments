@@ -9,7 +9,8 @@ let
   ssb = someCyclesBy
   one prob p = sb prob (off "1s" id) $ shift $ p
   shrand x = shiftBy x $ rand
-  randdelay p = ((# delay 0.9) . (# delayfb 0.9) . (# delayt (range 0.0001 0.2 $ shrand 891))) $ p
+  randdelay p = 
+    ((# delay 0.9) . (# delayfb 0.9) . (# delayt (range 0.0001 0.2 $ shrand 891))) $ p
   beginend bpat durpat = (begin bpat) # (end $ (+) <$> bpat <*> durpat)
   cpsDisc min max p = (|* cps (segment 1 $ range min max $ shrand 17719373)) $ p
   cpsTri min max spd p = (|* cps (range min max $ slow spd $ tri)) $ p

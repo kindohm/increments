@@ -1,38 +1,41 @@
 const fs = require("fs");
+const { encode } = require("html-entities");
+const patternsMetadata = require("./../data");
 const whiskers = require("whiskers");
 const { format, parse } = require("date-fns");
-const { encode } = require("html-entities");
 
 const isProd = process.env.prod === "true";
 const urlPrefix = isProd ? "https://kindohm-increments.s3.amazonaws.com" : "";
 
-console.log("reading sketches");
-const sketchDirNames = fs.readdirSync(`${__dirname}/../sketches`);
+const distFolder = `${__dirname}/../dist`;
+if (fs.existsSync(distFolder)) {
+  console.log("removing existing dist folder");
+  fs.rmdirSync(distFolder, { recursive: true });
+}
 
-console.log("mapping sketches");
-const sketches = sketchDirNames
-  .filter((s) => s !== ".DS_Store")
-  .map((sketchDirName) => {
-    const sketchNumber = sketchDirName.substr(0, 4);
-    const rawDateString = sketchDirName.substr(5);
-    const sketchDir = `${__dirname}/../sketches/${sketchDirName}`;
-    const tidalPath = `${sketchDir}/${sketchNumber}.tidal`;
-    const mp3SourcePath = `${sketchDir}/${sketchNumber}.mp3`;
-    const date = parse(rawDateString, "yyyy-MM-dd", new Date());
+console.log("creating dist folder");
+fs.mkdirSync(distFolder);
+fs.mkdirSync(`${distFolder}/data`);
+
+const sketches = patternsMetadata
+  .map((patternMetadata) => {
+    const { name, date } = patternMetadata;
+    const tidalPath = `${__dirname}/../patterns/${name}.tidal`;
     const tidalCode = encode(fs.readFileSync(tidalPath, "utf8"));
-    const mp3DestFilename = `kindohm.incremental.${sketchNumber}.mp3`;
-    const mp3DestUrl = `${urlPrefix}/increments/${mp3DestFilename}`;
+    const mp3SourcePath = `${__dirname}/../mixes/${name}.mp3`
+    const mp3DestFilename = `kindohm.incremental.${name}.mp3`;
     const mp3DestPath = `${__dirname}/../dist/increments/${mp3DestFilename}`;
-
+    const mp3DestUrl = `${urlPrefix}/increments/${mp3DestFilename}`;
+    const dateDisplay = format(new Date(date), "yyyy-MM-dd");
     return {
-      sketchNumber,
-      date,
-      dateDisplay: format(new Date(date), "yyyy-MM-dd"),
+      ...patternMetadata,
+      sketchNumber: name,
       tidalCode,
-      mp3SourcePath,
-      mp3DestFilename,
       mp3DestUrl,
+      dateDisplay,
+      mp3SourcePath, 
       mp3DestPath,
+      date: new Date(date),
     };
   })
   .sort((a, b) => {
@@ -41,11 +44,6 @@ const sketches = sketchDirNames
     }
     return a.date.getTime() > b.date.getTime() ? -1 : 1;
   });
-
-console.log(`building ${sketches.length} sketches`);
-console.log(`last sketch: ${sketches[0].date} ${sketches[0].sketchNumber}`);
-
-//#343434 : #a55ecd
 
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
@@ -73,7 +71,6 @@ const colors = [
 ];
 
 const randColor = colors[getRandomIntInclusive(0, colors.length - 1)];
-const cssrand = getRandomIntInclusive(0, 99999999);
 
 const cssTemplatePath = `${__dirname}/../site/styles.css`;
 const cssTemplate = fs.readFileSync(cssTemplatePath, "utf8");
@@ -83,13 +80,17 @@ const globalTemplatePath = `${__dirname}/../site/template.html`;
 const globalTemplate = fs.readFileSync(globalTemplatePath, "utf8");
 
 const cssOutput = whiskers.render(cssTemplate, { ...randColor });
+fs.writeFileSync(`${__dirname}/../dist/styles.css`, cssOutput);
 
+const cssrand = getRandomIntInclusive(0, 99999999);
 const indexContentOutput = whiskers.render(indexTemplate, { sketches });
 const indexOutput = whiskers.render(globalTemplate, {
   content: indexContentOutput,
   title: "increments",
   cssrand,
 });
+const outPath = `${__dirname}/../dist/index.html`;
+fs.writeFileSync(outPath, indexOutput);
 
 const functions = fs.readFileSync(`${__dirname}/../functions.tidal`);
 const functionsOutput = whiskers.render(globalTemplate, {
@@ -111,20 +112,6 @@ const licenseOutput = whiskers.render(globalTemplate, {
   cssrand,
 });
 
-const distFolder = `${__dirname}/../dist`;
-if (fs.existsSync(distFolder)) {
-  console.log("removing existing dist folder");
-  fs.rmdirSync(distFolder, { recursive: true });
-}
-
-console.log("creating dist folder");
-fs.mkdirSync(distFolder);
-
-const outPath = `${__dirname}/../dist/index.html`;
-fs.writeFileSync(outPath, indexOutput);
-
-fs.writeFileSync(`${__dirname}/../dist/styles.css`, cssOutput);
-
 fs.writeFileSync(`${__dirname}/../dist/functions.html`, functionsOutput);
 
 fs.writeFileSync(`${__dirname}/../dist/license.html`, licenseOutput);
@@ -135,6 +122,7 @@ fs.copyFileSync(
 );
 
 if (!isProd) {
+  console.log('copying mp3s to local increments/ dir');
   fs.mkdirSync(`${distFolder}/increments/`);
   sketches.forEach((sketch) => {
     fs.copyFile(sketch.mp3SourcePath, sketch.mp3DestPath, (err) => {
@@ -144,5 +132,6 @@ if (!isProd) {
     });
   });
 }
+
 
 console.log("done");

@@ -9,15 +9,16 @@ const getFileUpdatedDate = (path) => {
   return stats.mtime;
 };
 
-const setTags = async (sketchDirName) => {
+const setTags = async (sketchMeta) => {
+  
   return new Promise((resolve, reject) => {
-    const rawNumber = sketchDirName.substr(0, 4);
-    const rawDateString = sketchDirName.substr(5);
-    const baseFilePath = `${__dirname}/../sketches/${sketchDirName}/${rawNumber}`;
-    const mp3Path = `${baseFilePath}.mp3`;
-    const tidalPath = `${baseFilePath}.tidal`;
+    const rawNumber = sketchMeta.name; //DirName.substr(0, 4);
+    // const rawDateString = sketchDirName.substr(5);
+    // const baseFilePath = `${__dirname}/../mixes/${rawNumber}`;
+    const mp3Path = `${__dirname}/../mixes/${rawNumber}.mp3`;
+    const tidalPath = `${__dirname}/../patterns/${rawNumber}.tidal`;
     const code = fs.readFileSync(tidalPath, "utf8");
-    const date = parse(rawDateString, "yyyy-MM-dd", new Date());
+    const date = new Date(sketchMeta.date); // parse(rawDateString, "yyyy-MM-dd", new Date());
     const trackNumber = parseInt(rawNumber) + 1;
     const tags = {
       title: rawNumber,
@@ -46,12 +47,13 @@ const setTags = async (sketchDirName) => {
 
 const main = async () => {
   console.log("reading sketches");
-  const sketchDirNames = fs.readdirSync(`${__dirname}/../sketches`);
+  // const sketchDirNames = fs.readdirSync(`${__dirname}/../sketches`);
+  const patternsMetadata = require("./../data");
+ 
 
   console.log("mapping sketches");
-  const promises = sketchDirNames
-    .filter((x) => x !== ".DS_Store")
-    .map((sketchDirName) => setTags(sketchDirName));
+  const promises = patternsMetadata
+    .map((sketch) => setTags(sketch));
   const results = Promise.all(promises);
 
   console.log("done");
