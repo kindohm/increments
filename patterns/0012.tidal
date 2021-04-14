@@ -1,26 +1,24 @@
-do
-  d1  
-    $ limit
-    $ shift
-    $ while (slow 1.25 $ binary 11) (# accelerate "-0.25")
-    $ dg2
-    $ stack [
-        while (slow 2 $ binary 7) ((# orbit 1) . (# gain 0.8))
-        $ while "t(<1 2 1 2 4>,12,<0 7 4>)" ((# s "<dim1 herb1>") . (|* speed "<1.5 2>"))
-        $ while (slow 1.33 $ binary 22) (|* speed 0.5)
-        $ while "t(<2 1 2 3>,8,<9 4 1>)" (|+ n 2)
-        $ while (slow 1.5 $ binary 15) (# pan rand)
-        $ struct "1(<3 5 4>,16,<0 11>)"
-        $ n "<0 0 4>"
-        # s ("<sketch0007>") # cps 0.6
-        # cut "{1 1 1 2 1 2}%16"
-        # speed 0.5
-        # orbit 0
-      , while (slow 2 $ binary 9) (|+ n 2) 
-        $ every 5 (off 0.5 (|* speed 0.9)) 
-        $ foldEvery [2,3,5] (0.125 <~)
-        $ s "sketch0008" # n 10 # end 0.25 # shape 0.5
-    ]
+d1  
+  $ limit
+  $ shift
+  $ while (slow 1.25 $ binary 11) (# accelerate "-0.25")
+  $ dg2
+  $ stack [
+      while (slow 2 $ binary 7) ((# orbit 1) . (# gain 0.8))
+      $ while "t(<1 2 1 2 4>,12,<0 7 4>)" ((# s "<dim1 herb1>") . (|* speed "<1.5 2>"))
+      $ while (slow 1.33 $ binary 22) (|* speed 0.5)
+      $ while "t(<2 1 2 3>,8,<9 4 1>)" (|+ n 2)
+      $ while (slow 1.5 $ binary 15) (# pan rand)
+      $ struct "1(<3 5 4>,16,<0 11>)"
+      $ n "<0 0 4>"
+      # s ("<sketch0007>") # cps 0.6
+      # cut "{1 1 1 2 1 2}%16"
+      # speed 0.5
+      # orbit 0
+    , while (slow 2 $ binary 9) (|+ n 2) 
+      $ every 5 (off 0.5 (|* speed 0.9)) 
+      $ foldEvery [2,3,5] (0.125 <~)
+      $ s "sketch0008" # n 10 # end 0.25 # shape 0.5
+  ]
 
-    hush
-    
+hush
