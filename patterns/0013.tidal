@@ -1,0 +1,35 @@
+do
+  let pat = "{1@3 1@3 1@3 1@4 1@4 1@4 1@20 1@17}%16"
+  d1 
+    $ limit
+    $ sb "{0.2 0.3 0.4}%4" (|+ n "{10 11}%5")
+    $ shift
+    $ sb "<0.1 0.1 0.2 0.1 0.1>" 
+      ((# s "{herb2 alm1 herb2 alm1 cat2}%13") . (|* gain 0.75))
+    $ shift
+    $ whenmod 10 7 (degradeBy 0.4)
+    $ stack [
+      struct pat 
+        $ s "sketch0013" 
+        # n "{33 99 111}%4" # cut "{1 1 2 1 1 3}%5"
+        # speed "{0.5 1}%5"
+      , whenmod 12 6 (0.125 ~>) 
+          $ sb 0.2 
+          ((stutWith 
+            "{1 2 1}%5" 
+            "{3e 3s}%11" 
+            (|+ n "{8239 28590 0345}%7")) . (# pan (range 0 1 $ shrand 44)))
+          $ shiftBy 3007
+          $ s "sketch0013" # n 3 # speed 2 # end 0.1 # hpf 300
+    ] # cps (130/120/2)
+  d2 
+    $ limit 
+    $ stack [
+      s "sketch0013" # n 25 # begin (range 0.2 0.5 $ shrand 100)
+        # hpf 100
+      , slow "<4 3>" $ struct "1(3,8)" 
+        $ s "sketch0013" # n 10 # begin (range 0.2 0.5 $ shrand 200)
+        # hpf 100
+    ]
+
+hush
