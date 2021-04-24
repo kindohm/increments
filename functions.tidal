@@ -16,7 +16,8 @@ let
   cpsTri min max spd p = (|* cps (range min max $ slow spd $ tri)) $ p
   ripOLD a b p = within (0.25, 0.75) (slow 2 . rev . stut 8 a b) p
   ripOLD' a b c d e p = within (a, b) (slow 2 . rev . stut c d e) p
-  rip1 p= ripOLD 0.6 (0.0625/8) $ p
+  rip1 p = ripOLD 0.6 (0.0625/8) $ p
+  rip2 p = ripOLD 0.6 (0.0625/4) $ p
   dg0 = degradeBy 0
   dg1 = degradeBy 0.1
   dg2 = degradeBy 0.2
